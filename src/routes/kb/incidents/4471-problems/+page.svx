@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: Iferencak
 status: proposed
 reviewed: 2026-10-28
-signature: Iferencak
+signature: v1.eyJzdWIiOiIzOTAzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxODM0ODcsImV4cCI6MTc5MzI2OTg4N30._7yXpcgdD5OqLRWH2aBY1gdiMoEGspvPhGZucllLkB4
 ---
 
 <script>
@@ -17,13 +17,16 @@ signature: Iferencak
   const tickets = { parser: `${repo}/1`, hint: `${repo}/2`, 'one-day': `${repo}/3` };
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Its reports say otherwise.
+[#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. Its reports said otherwise.
 They were merged by subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and
 every one of them has a subject about a wrong date. Read the bodies, place each report by its
-tenant and the way it came in, and three problems come out. The queued parser fix closes one.
+tenant and the way it came in, and three problems come out.
+
+Engineering closed #4471 on 5 October: `parser` **fixed** (`fix(dates): parse dd/mm for eu locales`),
+`hint` **won't fix** (the booking-v3 form is retired).
 
 <Callout kind="warn">
-The parser fix does not reach the other two. Each now has its own ticket.
+The one-day move is in neither. Its ticket stays open.
 </Callout>
 
 ## The problems
@@ -41,6 +44,8 @@ The parser fix does not reach the other two. Each now has its own ticket.
   one day off (`desk-notes.json`). [The #4471 page](/kb/incidents/4471) still counts them under
   `parser` or `hint` by tenant. No swap of day and month gives one day off, and one report
   shows the same meeting on two days in two time zones. They are their own problem.
+- **The desk's own count.** CauseTable below keeps the five one-day moves under `parser`, so the
+  desk counts 379 there; the parser ticket carries that count.
 - **One id, one report.** The export repeats some reports across pages; each counts once.
 
 ## What #4471 shows today, for comparison
