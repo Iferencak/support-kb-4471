@@ -1,0 +1,56 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: Iferencak
+status: proposed
+reviewed: 2026-10-28
+signature: Iferencak
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const repo = 'https://github.com/Iferencak/support-kb-4471/issues';
+  const tickets = { parser: `${repo}/1`, hint: `${repo}/2`, 'one-day': `${repo}/3` };
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Its reports say otherwise.
+They were merged by subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and
+every one of them has a subject about a wrong date. Read the bodies, place each report by its
+tenant and the way it came in, and three problems come out. The queued parser fix closes one.
+
+<Callout kind="warn">
+The parser fix does not reach the other two. Each now has its own ticket.
+</Callout>
+
+## The problems
+
+<ProblemTable ticket={4471} {tickets} />
+
+## How each report was placed
+
+- **Read the body, not the subject.** Subjects were picked from the same handful of phrases for
+  every problem, so they cannot split one.
+- **Tenant, not browser.** The cause depends on the tenant's locale and booking form
+  (`causes.ts`, `locales.ts`). Intake's tag guesses from the reporter's browser, and it is wrong
+  for dozens of these reports.
+- **A flipped month is not a one-day move.** The desk already listed five reports that read as
+  one day off (`desk-notes.json`). [The #4471 page](/kb/incidents/4471) still counts them under
+  `parser` or `hint` by tenant. No swap of day and month gives one day off, and one report
+  shows the same meeting on two days in two time zones. They are their own problem.
+- **One id, one report.** The export repeats some reports across pages; each counts once.
+
+## What #4471 shows today, for comparison
+
+<CauseTable ticket={4471} />
+
+## Lessons
+
+- Merging on subject made one ticket out of three problems. A count on a merged ticket counts
+  subjects, not bugs.
+- "Known" closed the question for the two problems nobody had looked at.
+
+<RenderStamp {signature} />
